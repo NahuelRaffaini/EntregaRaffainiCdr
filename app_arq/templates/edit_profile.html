@@ -1,0 +1,27 @@
+{% extends 'padre.html' %}
+
+{% block title %}Editar perfil{% endblock %}
+{% block contenidoQueCambia %}
+
+</form>
+<div style="display: flex; justify-content: space-between;">
+    <div class="container mt-5" style="width: 100%; margin: 20px;">
+        <div class="card p-4">
+            <div class="container mt-5" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>Editar Perfil</h2>
+                {% if request.user.is_superuser %}
+                    <a href="{% url 'crear_superusuario' %}" class="btn btn-outline-primary" style="margin-left: 700px;">Crear superusuario</a>
+                {% else %}
+                {% endif %}
+                <a href="{% url 'change_password' %}" class="btn btn-outline-primary ml-auto">Cambiar contraseña</a>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                Usuario: {{ form.username }}
+                Email: {{ form.email }}
+                <button type="submit">Guardar Cambios</button>
+        </div>
+    </div>
+</div>
+
+{% endblock contenidoQueCambia %}

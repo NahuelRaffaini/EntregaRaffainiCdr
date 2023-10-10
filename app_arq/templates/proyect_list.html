@@ -1,0 +1,65 @@
+{% extends 'padre.html' %}
+
+{% block title %}Proyectos{% endblock %}
+
+{% block contenidoQueCambia %}
+
+<div style="display: flex; justify-content: space-between;">
+    <div class="container mt-5" style="width: 100%; margin: 20px;">
+        <div class="card p-4">
+            <div class="container mt-5" style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>Listado de Proyectos</h1>
+                <a href="{% url 'crear_proyecto' %}" class="btn btn-success">Crear proyecto</a>
+            </div>
+            <form action="{% url 'filtrar_proyectos' %}" method="get">
+                <input type="text" name="q" placeholder="Buscar proyectos..." value="{{ request.GET.q }}"> 
+                <button type="submit" class="btn btn-outline-primary btn-sm">Buscar</button>
+            </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Titulo </th>
+                        <th>Descripcion</th>
+                        <th>Link</th>
+                        <th>Email</th>
+                        <th>Inversion requerida</th>
+                        <th>PDF</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if proyectos %}
+                        {% for proyecto in proyectos %}
+                        <tr>
+                            <td>{{ proyecto.titulo }}</td>
+                            <td>{{ proyecto.descripcion }}</td>
+                            <td>
+                                <a href="{{ proyecto.link }}" class="btn btn-sm btn-dark" download>Link</a>
+                            </td>
+                            <td>{{ proyecto.email }}</td>
+                            <td>{{ proyecto.inversion }}</td>
+                            <td>
+                                <a href="{{ proyecto.pdf.url }}" class="btn btn-sm btn-link" download>Descargar PDF</a>
+                            </td>
+                            <td>
+                                {% if proyecto.user == request.user or request.user.is_superuser %}
+                                <div class="btn-group">
+                                    <a href="{% url 'actualizar_proyecto' pk=proyecto.pk %}" class="btn btn-primary">Editar</a>
+                                    <a href="{% url 'eliminar_proyecto' pk=proyecto.pk %}" class="btn btn-danger">Eliminar</a>
+                                </div>
+                                {% else %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No se encontraron proyectos.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock contenidoQueCambia %}

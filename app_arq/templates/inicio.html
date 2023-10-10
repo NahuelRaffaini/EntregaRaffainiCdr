@@ -1,0 +1,46 @@
+{% extends 'padre.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block contenidoQueCambia %}
+
+
+    <div style="display: flex; justify-content: space-between;">
+        <div class="container mt-5" style="width: 100%; margin: 20px;">
+            <div class="card p-4">
+                <h1 class="text-center">Bienvenido a Arquia</h1>
+                <h5 class="text-center">Somos una web que ayuda al mundo de la construccion</h5>
+
+                <!-- Nuevas cards -->
+                <div class="d-flex flex-row mx-auto">
+                    <div class="card bg-primary text-white mx-auto" style="width: 30%; margin: 5px;">
+                        <div class="card-body text-center">
+                            <h3>Proyectos</h3>
+                            Ayudamos a que a través de nuestra plataforma encuentres inversores interesados en aportar a tu proyecto.
+Con una breve descripción y los datos necesarios para mostrar lo que ofreces y que se pongan en contacto contigo tendrás una mayor visibilidad para la captación de capitales.
+                        </div>
+                    </div>
+
+                    <div class="card bg-primary text-white mx-auto" style="width: 30%; margin: 5px;">
+                        <div class="card-body text-center">
+                            <h3>Trabajadores</h3>
+                            Si eres un trabajador en busca de un puesto laboral te ofrecemos un espacio en el que las empresas constructoras o estudios puedan encontrarte. Con una mínima cantidad de datos y tu curriculum podrás mostrar si eres el trabajador que estaban buscando y al instante podrán ponerse en contacto contigo.
+                        </div>
+                    </div>
+
+                    <div class="card bg-primary text-white mx-auto" style="width: 30%; margin: 5px;">
+                        <div class="card-body text-center">
+                            <h3>Materiales</h3>
+                            Consigue visibilidad en tu negocio de venta de materiales para la construcción a través de nuestra plataforma. Publicando datos de contacto y zona de ubicación las obras en construcción que necesiten de materiales podrán ubicarte rápidamente y ponerse en contacto contigo para verificar que tengas lo que buscan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock contenidoQueCambia %}

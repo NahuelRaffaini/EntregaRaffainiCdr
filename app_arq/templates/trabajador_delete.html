@@ -1,0 +1,20 @@
+{% extends 'padre.html' %}
+
+{% block title %}Eliminar trabajador{% endblock %}
+
+{% block contenidoQueCambia %}
+<div style="display: flex; justify-content: space-between;">
+    <div class="container mt-5" style="width: 100%; margin: 20px;">
+        <div class="card p-4">
+            <form action="{% url 'eliminar_trabajador' pk=trabajador.pk %}" method="post">
+            {% csrf_token %}
+
+                <p>Está seguro que quiere eliminar el trabajador?</p>
+
+                <button type="submit"> Confirmar </button>
+                <button><a href="{% url 'lista_trabajador' %}"> Cancelar </a></button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock contenidoQueCambia %}

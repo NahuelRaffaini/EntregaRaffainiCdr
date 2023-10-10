@@ -1,0 +1,14 @@
+{% extends 'padre.html' %}
+
+{% block title %}Registro superusuario{% endblock %}
+
+{% block contenidoQueCambia %}
+<div class="container mt-5">
+    <h1>Registrar superusuario</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Crear superusuario</button>
+    </form>
+</div>
+{% endblock contenidoQueCambia %}

@@ -1,0 +1,57 @@
+{% extends 'padre.html' %}
+
+{% block title %}Puntos de materiales{% endblock %}
+
+{% block contenidoQueCambia %}
+
+<div style="display: flex; justify-content: space-between;">
+    <div class="container mt-5" style="width: 100%; margin: 20px;">
+        <div class="card p-4">
+            <div class="container mt-5" style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>Listado de puntos de venta de materiales</h1>
+                <a href="{% url 'crear_material' %}" class="btn btn-success">Crear punto de materiales</a>
+            </div>
+            <form action="{% url 'filtrar_materiales' %}" method="get">
+                <input type="text" name="q" placeholder="Buscar puntos..." value="{{ request.GET.q }}"> 
+                <button type="submit" class="btn btn-outline-primary btn-sm">Buscar</button>
+            </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Numero</th>
+                        <th>Email</th>
+                        <th>Ubicacion</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if materiales %}
+                        {% for material in materiales %}
+                        <tr>
+                            <td>{{ material.nombre }}</td>
+                            <td>{{ material.numero }}</td>
+                            <td>{{ material.email }}</td>
+                            <td>{{ material.barrio }}</td>
+                            <td>
+                                {% if material.user == request.user or request.user.is_superuser %}
+                                <div class="btn-group">
+                                    <a href="{% url 'actualizar_material' pk=material.pk %}" class="btn btn-primary">Editar</a>
+                                    <a href="{% url 'eliminar_material' pk=material.pk %}" class="btn btn-danger">Eliminar</a>
+                                </div>
+                                {% else %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No se encontraron puntos.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock contenidoQueCambia %}

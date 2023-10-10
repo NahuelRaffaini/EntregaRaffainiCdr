@@ -1,0 +1,110 @@
+{% extends 'padre.html' %}
+
+{% block title %}Trabajadores{% endblock %}
+{% block contenidoQueCambia %}
+<div style="display: flex; justify-content: space-between;">
+    <div class="container mt-5" style="width: 100%; margin: 20px;">
+        <div class="card p-4">
+            <div class="container mt-5" style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>Listado de Trabajadores</h1>
+                <a href="{% url 'crear_trabajador' %}" class="btn btn-success">Crear trabajador</a>
+            </div>
+            <form action="{% url 'filtrar_trabajadores' %}" method="get">
+                <input type="text" name="q" placeholder="Buscar trabajadores..." value="{{ request.GET.q }}"> <button type="submit" class="btn btn-outline-primary btn-sm">Buscar</button>
+            </form>
+            <div class="d-flex flex-row">
+                <form action="{% url 'filtrar_trabajadores' %}" method="get" class="row align-items-center mx-2">
+                    <div class="col-auto">
+                        <div class="form-group mb-2">
+                            <label for="id_puesto" class="sr-only">Puesto:</label>
+                            <select name="puesto" id="id_puesto" class="form-control">
+                                <option value="">Todos</option>
+                                <option value="1">Obrero</option>
+                                <option value="2">Maestro mayor</option>
+                                <option value="3">Arquitecto</option>
+                                <option value="4">Ingeniero</option>
+                                <option value="5">Renderista</option>
+                                <option value="6">Maquetista</option>
+                                <option value="7">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-group mb-2">
+                            <label for="id_disponibilidad" class="sr-only">Disponibilidad:</label>
+                            <select name="disponibilidad" id="id_disponibilidad" class="form-control">
+                                <option value="">Todos</option>
+                                <option value="3">Total</option>
+                                <option value="1">Semana</option>
+                                <option value="2">Fin de semana</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-group mb-2">
+                            <label for="id_horario" class="sr-only">Horario:</label>
+                            <select name="horario" id="id_horario" class="form-control">
+                                <option value="">Todos</option>
+                                <option value="3">Total</option>
+                                <option value="1">Mañana</option>
+                                <option value="2">Tarde</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Buscar</button>
+                    </div>
+                </form>
+            </div>            
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Número</th>
+                    <th>Email</th>
+                    <th>Horario</th>
+                    <th>Disponibilidad</th>
+                    <th>Puesto</th>
+                    <th> </th>
+                    <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if trabajadores %}
+                        {% for trabajador in trabajadores %}
+                        <tr>
+                            <td>{{ trabajador.nombre }}</td>
+                            <td>{{ trabajador.apellido }}</td>
+                            <td>{{ trabajador.numero }}</td>
+                            <td>{{ trabajador.email }}</td>
+                            <td>{{ trabajador.get_horario_display }}</td>
+                            <td>{{ trabajador.get_disponibilidad_display }}</td>
+                            <td>{{ trabajador.get_puesto_display }}</td>
+                            <td>
+                                <a href="{{ trabajador.cv.url }}" class="btn btn-sm btn-link" download>Descargar CV</a>
+                            </td>
+                            <td>
+                                {% if trabajador.user == request.user or request.user.is_superuser %}
+                                <div class="btn-group">
+                                    <a href="{% url 'actualizar_trabajador' pk=trabajador.pk %}" class="btn btn-primary">Editar</a>
+                                    <a href="{% url 'eliminar_trabajador' pk=trabajador.pk %}" class="btn btn-danger">Eliminar</a>
+                                </div>
+                                {% else %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No se encontraron trabajadores.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock contenidoQueCambia %}
