@@ -6,7 +6,7 @@
 <div style="display: flex; justify-content: space-between;">
     <div class="container mt-5" style="width: 100%; margin: 20px;">
         <div class="card p-4">
-            <form action="{% url 'eliminar_material' %}  pk=material.pk" method="post">
+            <form action="{% url 'eliminar_material' pk=material.pk %}" method="post">
             {% csrf_token %}
 
                 <p>Está seguro que quiere eliminar el punto de materiales?</p>

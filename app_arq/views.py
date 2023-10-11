@@ -183,7 +183,7 @@ class ProyectoUpdateView(LoginRequiredMixin, UpdateView):
 
 class ProyectoDeleteView(LoginRequiredMixin, DeleteView):
     model = Proyecto
-    template_name = 'proyecto_delete.html'
+    template_name = 'proyect_delete.html'
     success_url = '/app_arq/lista_proyecto/'
     login_url = '/app_arq/login/'
     
@@ -260,12 +260,18 @@ class MaterialCreateView(LoginRequiredMixin, CreateView):
 class MaterialDeleteView(LoginRequiredMixin, DeleteView):
     model = Material
     template_name = 'material_delete.html'
-    success_url = '/app_arq/lista_material/'
+    success_url = '/app_arq/lista_material'
     login_url = '/app_arq/login/'
     context_object_name = "material"
     
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+class TrabajadorDeleteView(LoginRequiredMixin, DeleteView):
+    model = Trabajador
+    template_name = 'trabajador_delete.html'
+    success_url = '/app_arq/lista_trabajador'
+    login_url = '/app_arq/login/'
 
 
 class MaterialUpdateView(LoginRequiredMixin, UpdateView):
